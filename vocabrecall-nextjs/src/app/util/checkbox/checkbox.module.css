@@ -1,0 +1,38 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxinput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--outline);
+  border-radius: 0.25rem;
+  background-color: var(--panel);
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkboxinput:checked + .checkboxbox {
+  background-color: var(--primary);
+  border-color: var(--outline);
+  color: white;
+}
+
+.checkboxlabel {
+  font-size: 18px;
+  color: var(--text);
+}

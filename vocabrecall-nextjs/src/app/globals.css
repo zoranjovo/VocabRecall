@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --text: #171717;
+  --card: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --text: #ffffff;
+    --panel: #202020;
+    --panel-h: #2e2e2e;
+    --outline: #6e6e6e;
+    --primary: #0022e6;
+
+  }
+}
+
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  background-color: var(--panel);
+  color: var(--text);
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+button:hover {
+  background-color: var(--panel-h);
+  transform: translateY(-2px);
+}
+
+input {
+  border: 1px solid var(--outline);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
