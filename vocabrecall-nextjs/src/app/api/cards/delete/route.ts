@@ -9,8 +9,6 @@ export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id');
 
-  console.log(id)
-
   if (!id) { return new NextResponse('Card ID is required', { status: 400 }); }
 
   try {

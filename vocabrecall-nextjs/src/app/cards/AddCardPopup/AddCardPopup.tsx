@@ -6,13 +6,17 @@ import styles from './AddCardPopup.module.css';
 import { notify } from '@/app/util/notify';
 import Loading from '@/app/util/loading';
 import axios from 'axios';
+import type { Dispatch, SetStateAction } from 'react';
+import type { CardProps } from '@/app/cards/page';
 
 export default function AddCardPopup({
   open,
   handleClose,
+  setCards,
 }: {
   open: boolean;
   handleClose: () => void;
+  setCards: Dispatch<SetStateAction<CardProps[]>>;
 }){
 
 
@@ -56,6 +60,7 @@ export default function AddCardPopup({
       });
       if(res.status === 200){
         notify('success', 'Card added successfully!');
+        addToCardsArray(res.data);
         handleClose();
         setQuestion('');
         setQuestionAliases(['']);
@@ -73,6 +78,10 @@ export default function AddCardPopup({
     } finally {
       setLoading(false);
     }
+  }
+
+  const addToCardsArray = (newCard: CardProps) => {
+    setCards((prev) => [...prev, newCard])
   }
 
   return (

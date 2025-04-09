@@ -6,7 +6,8 @@ import { FilePlus } from 'lucide-react';
 import AddCardPopup from './AddCardPopup/AddCardPopup';
 import CardsView from './CardsView/CardsView';
 import axios from 'axios';
-import { notify } from '../util/notify';
+import { notify } from '@/app/util/notify';
+import Loading from '@/app/util/loading';
 
 export interface CardProps {
   id: string;
@@ -26,7 +27,7 @@ export interface CardProps {
 export default function CardsPage(){
 
   const [addCardPopupOpen, setAddCardPopupOpen] = useState<boolean>(false);
-  const [cardsLoading, setCardsLoading] = useState<boolean>(false);
+  const [cardsLoading, setCardsLoading] = useState<boolean>(true);
   const [cards, setCards] = useState<CardProps[]>([]);
 
   // fetch cards
@@ -36,7 +37,6 @@ export default function CardsPage(){
       try {
         const res = await axios.get('/api/cards/get');
         if(res.status === 200){
-          console.log(res.data)
           setCards(res.data);
         } else {
           console.error(res.data);
@@ -69,16 +69,27 @@ export default function CardsPage(){
 
           </div>
         </div>
-
-        <CardsView
-          cards={ cards }
-          setCards= { setCards }
-        />
+        { cardsLoading ? (
+          <div className='flex justify-center mt-10'>
+            <Loading/>
+          </div>
+        ) : (
+          cards.length < 1 ? (
+            <p className='text-[var(--text)] text-center mt-10 text-xl'>No cards found.</p>
+          ) : (
+            <CardsView
+              cards={ cards }
+              setCards= { setCards }
+            />
+          )
+        )}
+        
       </div>
 
       <AddCardPopup
         open={ addCardPopupOpen }
         handleClose={ () => setAddCardPopupOpen(false) }
+        setCards={ setCards }
       />
     </>
     

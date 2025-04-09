@@ -34,7 +34,13 @@
 .deleteBtnContainer {
   display: flex;
   justify-content: center;
-  width: 120px;
+  width: 130px;
+}
+.deleteConfirm {
+  background-color: red;
+}
+.deleteConfirm:hover {
+  background-color: red;
 }
 .saveBtnContainer {
   display: flex;

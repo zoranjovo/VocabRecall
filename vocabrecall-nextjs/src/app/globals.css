@@ -14,7 +14,7 @@
     --panel: #202020;
     --panel-h: #2e2e2e;
     --outline: #6e6e6e;
-    --primary: #0022e6;
+    --primary: #5770ff;
   }
 }
 
@@ -45,4 +45,5 @@ input {
   padding: 5px 10px;
   border-radius: 5px;
   margin: 2px;
+  color: var(--text);
 }

@@ -37,17 +37,17 @@ export default function LoginPage(){
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-md p-8 space-y-8 bg-[var(--panel)] rounded-lg shadow-md">
         <div>
-          <h1 className="text-2xl font-bold text-center">VocabRecall</h1>
-          <h2 className="mt-2 text-center text-gray-600">Session invalid/expired. Please login.</h2>
+          <h1 className="text-2xl font-bold text-center text-[var(--text)]">VocabRecall</h1>
+          <h2 className="mt-2 text-center text-[var(--text-secondary)]">Session invalid/expired. Please login.</h2>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="token" className="block text-sm font-medium text-gray-700">
-              Authentication Token
+            <label htmlFor="token" className="block text-sm font-medium text-[var(--text-secondary)]">
+              Auth Token
             </label>
             <input
               id="token"
@@ -56,7 +56,7 @@ export default function LoginPage(){
               required
               value={token}
               onChange={(e) => setToken(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full"
               placeholder="Enter your authentication token"
             />
           </div>
@@ -67,7 +67,7 @@ export default function LoginPage(){
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="w-full"
             >
               {loading ? "Logging in..." : "Login"}
             </button>

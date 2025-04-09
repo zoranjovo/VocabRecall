@@ -42,7 +42,8 @@ export default function EditCardPopup({
 
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-
+  
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState<boolean>(false);
 
   const handleAliasChange = (value: string, index: number, type: 'question' | 'answer') => {
     const aliases = type === 'question' ? [...questionAliases] : [...answerAliases];
@@ -64,6 +65,7 @@ export default function EditCardPopup({
     const filteredQuestionAliases = questionAliases.filter((alias) => alias.trim() !== "");
     const filteredAnswerAliases = answerAliases.filter((alias) => alias.trim() !== "");
 
+    // check for changes to card
     const hasChanges =
       initialCard?.partA !== question ||
       initialCard?.partB !== answer ||
@@ -71,7 +73,6 @@ export default function EditCardPopup({
       JSON.stringify(initialCard?.aliasesB) !== JSON.stringify(filteredAnswerAliases) ||
       initialCard?.reversible !== reversible ||
       initialCard?.note !== note;
-
     if(!hasChanges){ return notify("warn", "The card has not been edited.") }
 
     setSaveLoading(true);
@@ -123,10 +124,27 @@ export default function EditCardPopup({
     }
   }
 
+  // auto turn off delete confirmation after 2 seconds
+  const handleDeleteConfirmion = () => {
+    setDeleteConfirmationOpen(true);
+    setTimeout(() => {
+      setDeleteConfirmationOpen(false);
+    }, 2000);
+  }
+
+
+  // close popup and turn off delete confirmation
+  const closePopup = () => {
+    handleClose();
+    setTimeout(() => {
+      setDeleteConfirmationOpen(false);
+    }, 300);
+  }
+
   return (
     <Popup
       isOpen={ open }
-      onClose={ handleClose }
+      onClose={ closePopup }
     >
       <p className={styles.addCardTitle}>Edit Card</p>
       <div className={styles.addPopupInfoContainer}>
@@ -205,7 +223,7 @@ export default function EditCardPopup({
         
         <div className={styles.buttons}>
           <div className={styles.btnContainer}>
-            <button className='flex gap-2' onClick={ handleClose }>
+            <button className='flex gap-2' onClick={ closePopup }>
               <X/>
               Cancel
             </button>
@@ -214,10 +232,18 @@ export default function EditCardPopup({
             { deleteLoading ? (
               <Loading/>
             ) : (
-              <button className='flex gap-2' onClick={ handleDelete }>
-                <FileMinus/>
-                Delete
-              </button>
+              deleteConfirmationOpen ? (
+                <button className={`flex gap-2 ${styles.deleteConfirm}`} onClick={ handleDelete }>
+                  <FileMinus/>
+                  Confirm?
+                </button>
+              ) : (
+                <button className='flex gap-2' onClick={ handleDeleteConfirmion }>
+                  <FileMinus/>
+                  Delete
+                </button>
+              )
+              
             )}
           </div>
           <div className={styles.saveBtnContainer}>
@@ -231,8 +257,6 @@ export default function EditCardPopup({
             )}
           </div>
         </div>
-        
-        
       </div>
     </Popup>
   )

@@ -1,0 +1,13 @@
+.page {
+  margin-top: 10px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text);
+}
+
+@media (max-width: 1050px) {
+  .page {
+    width: 95%;
+  }
+}
