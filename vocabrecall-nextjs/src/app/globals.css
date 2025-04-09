@@ -10,11 +10,11 @@
   :root {
     --background: #0a0a0a;
     --text: #ffffff;
+    --text-secondary: #b3b3b3;
     --panel: #202020;
     --panel-h: #2e2e2e;
     --outline: #6e6e6e;
     --primary: #0022e6;
-
   }
 }
 
@@ -44,4 +44,5 @@ input {
   border: 1px solid var(--outline);
   padding: 5px 10px;
   border-radius: 5px;
+  margin: 2px;
 }

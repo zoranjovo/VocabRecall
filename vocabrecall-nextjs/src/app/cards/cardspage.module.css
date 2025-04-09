@@ -1,6 +1,6 @@
 .page {
   margin-top: 10px;
-  width: 1000px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -14,30 +14,9 @@
   margin-right: 10px;
 }
 
-.addPopupInfoContainer {
-  width: 100%;
-}
-.addPopupInputBox {
-  text-align: left;
-  margin: 10px 0px;
-}
-.addPopupInputLabel {
-  width: 90%;
-}
 
-.addPopupInput {
-  width: 100%;
-}
-
-.addPopupAddBtnContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-
-@media (max-width: 1050px) {
+@media (max-width: 1250px) {
   .page {
-    width: 95%;
+    width: 97%;
   }
 }

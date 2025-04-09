@@ -16,9 +16,9 @@ model Card {
   aliasesB        Json
   easeFactor      Float    @default(2.5)
   note            String?
-  correctInterval Int      @default(1)              // Default to 1 day interval
+  reversible      Boolean  @default(true)
+  correctInterval Int      @default(1)
   nextReview      DateTime @default(now())
-  insertedAt      DateTime @default(now())          // When it was inserted into SRS
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
