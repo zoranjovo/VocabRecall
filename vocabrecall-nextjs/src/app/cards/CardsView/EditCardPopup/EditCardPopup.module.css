@@ -21,6 +21,20 @@
 .addPopupInput {
   width: 100%;
 }
+
+.srsValuesContainer {
+  display: flex;
+  gap: 10px;
+  text-align: left;
+}
+.extraInfoContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.extraInfoBox {
+  width: 220px;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
@@ -46,4 +60,13 @@
   display: flex;
   justify-content: center;
   width: 180px;
+}
+
+
+@media (max-width: 560px) {
+  .buttons {
+    margin-top: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 }

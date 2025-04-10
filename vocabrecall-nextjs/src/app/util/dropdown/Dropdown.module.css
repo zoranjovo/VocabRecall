@@ -1,0 +1,64 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-right: 5px;
+  font-size: 18px;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+  gap: 10px;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: var(--panel-h);
+}
+
+.dropdownMenu {
+  position: absolute;
+  margin-top: 0px;
+  margin-left: 0px;
+  z-index: 100;
+  background-color: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  font-size: 18px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  gap: 15px;
+}
+
+.option:hover {
+  background-color: var(--primary);
+  color: #fff;
+  opacity: 80%;
+}
+
+.selected {
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--secondary);
+}
+
+.checkIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #fff;
+}

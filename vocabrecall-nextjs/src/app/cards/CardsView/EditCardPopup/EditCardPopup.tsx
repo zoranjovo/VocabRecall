@@ -7,6 +7,7 @@ import { notify } from '@/app/util/notify';
 import Loading from '@/app/util/loading';
 import axios from 'axios';
 import { type CardProps } from '@/app/cards/page';
+import { timeSince, timeUntil } from '@/app/util/dates';
 
 export default function EditCardPopup({
   open,
@@ -30,6 +31,8 @@ export default function EditCardPopup({
       if(initialCard?.aliasesB){ setAnswerAliases([...initialCard.aliasesB, '']); }
       if(initialCard?.note){ setNote(initialCard.note); }
       if(initialCard?.reversible !== undefined){ setReversible(initialCard.reversible); }
+      if(initialCard?.easeFactor !== undefined){ setEaseFactor(initialCard.easeFactor); }
+      if(initialCard?.correctInterval !== undefined){ setCorrectInterval(initialCard.correctInterval); }
     }
   }, [initialCard])
 
@@ -39,6 +42,8 @@ export default function EditCardPopup({
   const [answerAliases, setAnswerAliases] = useState<string[]>(['']);
   const [note, setNote] = useState<string>('');
   const [reversible, setReversible] = useState<boolean>(true);
+  const [easeFactor, setEaseFactor] = useState<number>(0);
+  const [correctInterval, setCorrectInterval] = useState<number>(0);
 
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
@@ -72,7 +77,9 @@ export default function EditCardPopup({
       JSON.stringify(initialCard?.aliasesA) !== JSON.stringify(filteredQuestionAliases) ||
       JSON.stringify(initialCard?.aliasesB) !== JSON.stringify(filteredAnswerAliases) ||
       initialCard?.reversible !== reversible ||
-      initialCard?.note !== note;
+      initialCard?.note !== note ||
+      initialCard?.easeFactor !== easeFactor ||
+      initialCard?.correctInterval !== correctInterval;
     if(!hasChanges){ return notify("warn", "The card has not been edited.") }
 
     setSaveLoading(true);
@@ -86,6 +93,8 @@ export default function EditCardPopup({
         aliasesB: answerAliases.filter((alias) => alias.trim() !== ""),
         reversible,
         note,
+        easeFactor,
+        correctInterval
       })
       if(res.status === 200){
         notify('success', 'Card updated successfully!');
@@ -211,7 +220,43 @@ export default function EditCardPopup({
           </div>
         </div>
 
-        
+        <div className={styles.addPopupInputGroup}>
+          <div className={styles.srsValuesContainer}>
+            <div>
+              <p className={styles.addPopupInputLabel}>Ease Factor</p>
+              <input
+                className={styles.addPopupInput}
+                placeholder='Note...'
+                value={ easeFactor }
+                type='number'
+                onChange={ (e) => setEaseFactor(Number(e.target.value)) }
+              />
+            </div>
+            <div>
+              <p className={styles.addPopupInputLabel}>Correct Interval</p>
+              <input
+                className={styles.addPopupInput}
+                placeholder='Note...'
+                value={ correctInterval }
+                type='number'
+                onChange={ (e) => setCorrectInterval(Number(e.target.value)) }
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.addPopupInputGroup}>
+          <div className={styles.extraInfoContainer}>
+            <div className={styles.extraInfoBox}>
+              <p className={styles.addPopupSpan}>Created: {timeSince(initialCard?.createdAt)}</p>
+            </div>
+            <p className={styles.addPopupSpan}>|</p>
+            <div className={styles.extraInfoBox}>
+              <p className={styles.addPopupSpan}>Next Review: {timeUntil(initialCard?.nextReview)}</p>
+            </div>
+            
+          </div>
+        </div>
         
         <div className='flex justify-center m-5'>
           <Checkbox

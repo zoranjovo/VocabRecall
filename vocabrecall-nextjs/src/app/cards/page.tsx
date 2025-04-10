@@ -8,6 +8,7 @@ import CardsView from './CardsView/CardsView';
 import axios from 'axios';
 import { notify } from '@/app/util/notify';
 import Loading from '@/app/util/loading';
+import Dropdown from '@/app/util/dropdown/Dropdown';
 
 export interface CardProps {
   id: string;
@@ -24,18 +25,31 @@ export interface CardProps {
   updatedAt: string;
 }
 
+const sortMap: Record<string, string> = {
+  'New → Old': 'newold',
+  'Old → New': 'oldnew',
+  'Best → Worst': 'bestworst',
+  'Worst → Best': 'worstbest',
+  'A → Z': 'az',
+  'Z → A': 'za',
+};
+
 export default function CardsPage(){
 
   const [addCardPopupOpen, setAddCardPopupOpen] = useState<boolean>(false);
   const [cardsLoading, setCardsLoading] = useState<boolean>(true);
   const [cards, setCards] = useState<CardProps[]>([]);
 
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [dropdownSelected, setDropdownSelected] = useState<string>('New → Old');
+
   // fetch cards
   useEffect(() => {
     const fetch = async () => {
+      const filter = sortMap[dropdownSelected] || 'newold';
       setCardsLoading(true);
       try {
-        const res = await axios.get('/api/cards/get');
+        const res = await axios.get(`/api/cards/get?search=${searchQuery.toLowerCase().trim()}&sort=${filter}`);
         if(res.status === 200){
           setCards(res.data);
         } else {
@@ -50,12 +64,27 @@ export default function CardsPage(){
       }
     }
     fetch();
-  }, []);
+  }, [searchQuery, dropdownSelected]);
 
   return(
     <>
       <div className={styles.page}>
         <div className={styles.top}>
+          <div className={styles.searchBarContainer}>
+            <input
+              className={styles.search}
+              value={ searchQuery }
+              onChange={ (e) => setSearchQuery(e.target.value) }
+              placeholder='Search...'
+            />
+          </div>
+          <div className={styles.dropdownContainer}>
+            <Dropdown
+              options={ ['New → Old', 'Old → New', 'Best → Worst', 'Worst → Best', 'A → Z', 'Z → A'] }
+              selected={ dropdownSelected }
+              onSelect={ setDropdownSelected }
+            />
+          </div>
           <div className={styles.addBtnContainer}>
             <button className={styles.addBtn} onClick={ () => setAddCardPopupOpen(true) }>
               <div className='flex gap-2'>
@@ -63,10 +92,6 @@ export default function CardsPage(){
                 Add Card
               </div>
             </button>
-          </div>
-
-          <div className={styles.searchContainer}>
-
           </div>
         </div>
         { cardsLoading ? (

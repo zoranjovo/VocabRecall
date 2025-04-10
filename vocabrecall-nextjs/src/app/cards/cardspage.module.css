@@ -7,16 +7,63 @@
 
 .top {
   display: flex;
+  justify-content: space-between;
 }
 
+.searchBarContainer {
+  width: 800px;
+}
+.search {
+  width: 100%;
+  border: 1px solid var(--outline);
+  background-color: var(--panel);
+  padding: 10px 20px;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.1s ease-in-out;
+}
+.search:focus {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 5px var(--primary);
+}
+.dropdownContainer {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
 .addBtnContainer {
-  margin-left: auto;
-  margin-right: 10px;
+  margin-right: 0;
+}
+.addBtn {
+  padding: 12px 15px;
 }
 
 
 @media (max-width: 1250px) {
   .page {
     width: 97%;
+  }
+  .searchBarContainer {
+    width: 65%;
+  }
+}
+@media (max-width: 1100px) {
+  .searchBarContainer {
+    width: 55%;
+  }
+}
+@media (max-width: 900px) {
+  .searchBarContainer {
+    width: 45%;
+  }
+}
+@media (max-width: 700px) {
+  .top {
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    gap: 10px;
+  }
+  .searchBarContainer {
+    width: 100%;
   }
 }

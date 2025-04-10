@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   if (!session) { return new NextResponse("Unauthorized", { status: 401 }); }
 
   const body = await req.json()
-  const { id, partA, partB, aliasesA, aliasesB, reversible, note } = body;
+  const { id, partA, partB, aliasesA, aliasesB, reversible, note, easeFactor, correctInterval } = body;
 
   if (!id) { return new NextResponse("Missing card ID", { status: 400 }); }
   if (!partA || !partB) { return new NextResponse("Missing required fields", { status: 400 }); }
@@ -26,6 +26,8 @@ export async function POST(req: Request) {
         aliasesB,
         reversible: reversible ?? true,
         note: note ?? "",
+        easeFactor,
+        correctInterval,
       },
     })
 
