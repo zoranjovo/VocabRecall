@@ -13,7 +13,7 @@ export async function POST(req: NextRequest){
       return NextResponse.json({ success: false, error: 'Invalid authentication token' }, { status: 401 });
     }
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('[LOGIN ERROR]:', error);
     return NextResponse.json({ success: false, error: 'An error occurred during login' }, { status: 500 });
   }
 }

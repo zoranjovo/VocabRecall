@@ -6,8 +6,44 @@
   color: var(--text);
 }
 
+.contentContainer {
+  display: flex;
+  gap: 50px;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.contentBox {
+  border: 1px solid var(--outline);
+  background-color: var(--panel);
+  width: 300px;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.boxTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+.btnContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.btn {
+  margin: 5px;
+}
+
 @media (max-width: 1050px) {
   .page {
     width: 95%;
+  }
+}
+@media (max-width: 720px) {
+  .contentContainer {
+    flex-direction: column;
+    align-items: center;
   }
 }
