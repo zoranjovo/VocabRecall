@@ -17,17 +17,17 @@ export default async function HomePage(){
           <p className={styles.boxTitle}>Practice Due Cards</p>
           <p>{reviewsDue} {reviewsDue === 1 ? 'review' : 'reviews'} due</p>
           <div className={styles.btnContainer}>
-            <Link href='/reviews'>
+            <Link href='/review'>
               <button className={styles.btn}>Practice Reviews</button>
             </Link>
           </div>
         </div>
         
         <div className={styles.contentBox}>
-          <p className={styles.boxTitle}>Practice worst cards</p>
-          <p>(Won't affect SRS values)</p>
+          <p className={styles.boxTitle}>Practice Worst Cards</p>
+          <p>(Won&apos;t affect SRS values)</p>
           <div className={styles.btnContainer}>
-            <Link href='/worst'>
+            <Link href='/review?type=worst'>
               <button className={styles.btn}>Practice Worst</button>
             </Link>
           </div>

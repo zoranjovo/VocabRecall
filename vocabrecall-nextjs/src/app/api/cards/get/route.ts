@@ -13,13 +13,13 @@ export async function GET(req: Request) {
     const search = searchParams.get('search')?.toLowerCase().trim() || '';
     const sort = searchParams.get('sort') || 'newold';
 
-    const sortMap: Record<string, any> = {
-      newold: { createdAt: 'desc' },
-      oldnew: { createdAt: 'asc' },
-      bestworst: { easeFactor: 'desc' },
-      worstbest: { easeFactor: 'asc' },
-      az: { partA: 'asc' },
-      za: { partA: 'desc' },
+    const sortMap: Record<string, object> = {
+      'newold': { createdAt: 'desc' },
+      'oldnew': { createdAt: 'asc' },
+      'bestworst': { easeFactor: 'desc' },
+      'worstbest': { easeFactor: 'asc' },
+      'az': { partA: 'asc' },
+      'za': { partA: 'desc' },
     };
 
     const orderBy = sortMap[sort] || { updatedAt: 'desc' };

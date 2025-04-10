@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --text: #171717;
-  --card: #ffffff;
+  --background: #0a0a0a;
+  --text: #ffffff;
+  --text-secondary: #b3b3b3;
+  --panel: #202020;
+  --panel-h: #2e2e2e;
+  --outline: #6e6e6e;
+  --primary: #5770ff;
+  --correct: #0f0;
+  --incorrect: #f00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,9 +21,11 @@
     --panel-h: #2e2e2e;
     --outline: #6e6e6e;
     --primary: #5770ff;
+    --correct: rgb(0, 105, 0);
+    --incorrect: rgb(141, 0, 0);
   }
 }
-
+/* theme selecting not implemented yet */
 
 
 body {

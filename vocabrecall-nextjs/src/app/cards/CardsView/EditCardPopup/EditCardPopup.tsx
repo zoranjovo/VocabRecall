@@ -34,7 +34,7 @@ export default function EditCardPopup({
       if(initialCard?.easeFactor !== undefined){ setEaseFactor(initialCard.easeFactor); }
       if(initialCard?.correctInterval !== undefined){ setCorrectInterval(initialCard.correctInterval); }
     }
-  }, [initialCard])
+  }, [initialCard, open])
 
   const [question, setQuestion] = useState<string>('');
   const [questionAliases, setQuestionAliases] = useState<string[]>(['']);
