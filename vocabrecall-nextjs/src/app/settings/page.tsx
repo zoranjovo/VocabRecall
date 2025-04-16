@@ -1,9 +1,23 @@
+import { getSession } from '@/app/util/session';
+import { redirect } from 'next/navigation';
+import styles from './settingspage.module.css';
+import Backup from './items/backup/Backup';
 
+export default async function SettingsPage(){
+  const session = await getSession();
+  if(!session){ redirect('/login'); }
 
-export default function SettingsPage(){
   return(
-    <div>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Settings</h1>
+      <div className={styles.contentContainer}>
 
+        <div className={styles.contentBox}>
+          <p className={styles.itemHeader}>Backup/Restore</p>
+          <Backup/>
+        </div>
+
+      </div>
     </div>
   )
 }

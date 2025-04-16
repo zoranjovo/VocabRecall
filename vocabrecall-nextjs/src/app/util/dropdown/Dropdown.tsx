@@ -19,6 +19,7 @@ export default function Dropdown({ options, selected, onSelect }: DropdownProps)
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+  
   const handleSelect = (option: string) => {
     onSelect(option);
     setIsOpen(false);

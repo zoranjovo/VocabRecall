@@ -31,14 +31,14 @@ export default function CheckAnswer({
           <div className={styles.sectionBox}>
             { displayItem?.answers.length === 1 ? (
               <>
-                <p className={styles.lang}>Answer</p>
+                <p className={styles.type}>Answer</p>
                 <div className={styles.answersContainer}>
                   <p className={styles.word}>{displayItem?.answers[0]}</p>
                 </div>
               </>
             ) : (
               <>
-                <p className={styles.lang}>Answers</p>
+                <p className={styles.type}>Answers</p>
                 <div className={styles.answersContainer}>
                   { displayItem?.answers.map((answer, index) => (
                     <li key={index} className={styles.word}>{answer}</li>

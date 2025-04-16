@@ -1,3 +1,4 @@
 /migrations
 /data.sqlite
 /data.sqlite-journal
+/backups
