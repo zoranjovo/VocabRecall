@@ -9,6 +9,7 @@ import { NotebookText, Check } from 'lucide-react';
 import Loading from '@/app/util/loading';
 import { useRouter } from 'next/navigation';
 import CheckAnswer from './CheckAnswer/CheckAnswer';
+import WorstPopup from './WorstPopup/WorstPopup';
 
 export interface Question {
   id: string;
@@ -22,7 +23,8 @@ export default function ReviewPage(){
 
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState<string>('');
-  const [trackingMap, setTrackingMap] = useState<Record<string, number>>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setTrackingMap] = useState<Record<string, number>>({});
   const [questionStack, setQuestionStack] = useState<Question[]>([]);
   const [totalQuestions, setTotalQuestions] = useState<number>(0);
   const [completedCount, setCompletedCount] = useState<number>(0);
@@ -31,6 +33,8 @@ export default function ReviewPage(){
   const [showInputHelpTxt, setShowInputHelpTxt] = useState<boolean>(false);
   const [checkingAnswer, setCheckingAnswer] = useState<'none' | 'correct' | 'incorrect'>('none');
   const [checkAnswerShown, setCheckAnswerShown] = useState<boolean>(false);
+  const [worstPopupShown, setWorstPopupShown] = useState<boolean>(false);
+  const [mode, setMode] = useState<'normal' | 'worst'>('normal');
 
   // page load function
   useEffect(() => {
@@ -60,13 +64,40 @@ export default function ReviewPage(){
     const searchParams = new URLSearchParams(location.search);
     const type = searchParams.get('type') || '';
     if(type === 'worst'){
-      console.error('not implemented')
+      // display popup
+      setWorstPopupShown(true);
+      setMode('worst');
     } else {
       // fetch due cards
       fetchDue();
+      setMode('normal');
     }
 
   }, []);
+
+
+  // fetch worst cards
+  const fetchWorst = async (num: number) => {
+    try {
+      const res = await axios.get(`/api/review/worst?amt=${num}`);
+      if(res.status === 200){
+        console.log(res.data);
+        if(!res.data || res.data.length === 0){ return notify('error', 'No Cards Available'); }
+        fillQuestions(res.data);
+        if(res.data.length < num){ notify('warn', `Only ${res.data.length} cards available.`);}
+      } else {
+        console.error(res.data);
+        notify('error', 'Failed to fetch worst cards.');
+      }
+    } catch (err) {
+      console.error(err);
+      notify('error', 'Failed to fetch worst cards.');
+    } finally {
+      setWorstPopupShown(false);
+      setLoading(false);
+    }
+  };
+  
 
 
   // generate question stack
@@ -191,14 +222,15 @@ export default function ReviewPage(){
     }
   }
 
-
+  // display answer dialog
   const onCheck = () => {
     if(checkingAnswer === 'none'){ return; }
     setCheckAnswerShown(true);
   }
-
   
+  // update card values on server
   const sendSRSUpdate = (cardId: string, correct: boolean) => {
+    if(mode === 'worst'){ return; }
     console.log(cardId, correct);
   }
 
@@ -262,9 +294,12 @@ export default function ReviewPage(){
           />
         </>
       )}
-      
 
-      
+      <WorstPopup
+        open={ worstPopupShown }
+        setOpen={ setWorstPopupShown }
+        fetch={ fetchWorst }
+      />
     
     </>
     

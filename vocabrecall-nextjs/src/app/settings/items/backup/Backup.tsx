@@ -52,7 +52,8 @@ export default function Backup(){
         URL.revokeObjectURL(url);
         notify('success', 'Downloaded SQLITE backup.');
       }
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch(err: any){
       if(err.response.status === 429){
         notify('warn', 'Please wait 1 minute between creating backups.');
