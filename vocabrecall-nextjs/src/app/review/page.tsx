@@ -8,8 +8,9 @@ import styles from './reviewpage.module.css';
 import { NotebookText, Check } from 'lucide-react';
 import Loading from '@/app/util/loading';
 import { useRouter } from 'next/navigation';
+import CheckAnswer from './CheckAnswer/CheckAnswer';
 
-interface Question {
+export interface Question {
   id: string;
   question: string;
   answers: string[];
@@ -193,7 +194,7 @@ export default function ReviewPage(){
 
   const onCheck = () => {
     if(checkingAnswer === 'none'){ return; }
-    console.log('check answer popup');
+    setCheckAnswerShown(true);
   }
 
   
@@ -209,51 +210,61 @@ export default function ReviewPage(){
           <Loading/>
         </div>
       ) : (
-        <div className={styles.container}>
+        <>
+          <div className={styles.container}>
 
-          <div className={styles.progressTxtContainer}>
-            <p className={styles.progressTxt}>{`${completedCount}/${totalQuestions}`}</p>
-          </div>
+            <div className={styles.progressTxtContainer}>
+              <p className={styles.progressTxt}>{`${completedCount}/${totalQuestions}`}</p>
+            </div>
 
-          <div className={styles.questionContainer}>
-            <div>
-              <h1 className={styles.questionTxt}>{currentQuestionTxt}</h1>
+            <div className={styles.questionContainer}>
+              <div>
+                <h1 className={styles.questionTxt}>{currentQuestionTxt}</h1>
+              </div>
+            </div>
+
+            <div className='flex justify-center'>
+              <p className={`${styles.helpTxt} ${showInputHelpTxt ? styles.show : ''}`}>{inputHelpTxt}</p>
+            </div>
+          
+            <div className={styles.inputContainer}>
+              <input
+                className={ `${styles.input} ${checkingAnswer === 'correct' ? styles.correct : ''} ${checkingAnswer === 'incorrect' ? styles.incorrect : ""}` }
+                value={ input }
+                onChange={ (e) => setInput(e.target.value) }
+                onKeyDown={ (e) => { if(e.key === 'Enter'){ handleSubmit(); } }}
+                placeholder='Answer...'
+              />
+            </div>
+
+            <div className={ styles.btnsUnderInput }>
+
+              <button onClick={ onCheck } className={ `${checkingAnswer === 'none' ? styles.grayBtn : '' }` }>
+                <div className={ styles.btnInner }>
+                  <NotebookText/>
+                  <p>Check</p>
+                </div>
+              </button>
+
+              <button onClick={ handleSubmit }>
+                <div className={ styles.btnInner }>
+                  <Check/>
+                  <p>Submit</p>
+                </div>
+              </button>
+
             </div>
           </div>
 
-          <div className='flex justify-center'>
-            <p className={`${styles.helpTxt} ${showInputHelpTxt ? styles.show : ''}`}>{inputHelpTxt}</p>
-          </div>
-        
-          <div className={styles.inputContainer}>
-            <input
-              className={ `${styles.input} ${checkingAnswer === 'correct' ? styles.correct : ''} ${checkingAnswer === 'incorrect' ? styles.incorrect : ""}` }
-              value={ input }
-              onChange={ (e) => setInput(e.target.value) }
-              onKeyDown={ (e) => { if(e.key === 'Enter'){ handleSubmit(); } }}
-              placeholder='Answer...'
-            />
-          </div>
-
-          <div className={ styles.btnsUnderInput }>
-
-            <button onClick={ onCheck } className={ `${checkingAnswer === 'none' ? styles.grayBtn : '' }` }>
-              <div className={ styles.btnInner }>
-                <NotebookText/>
-                <p>Check</p>
-              </div>
-            </button>
-
-            <button onClick={ handleSubmit }>
-              <div className={ styles.btnInner }>
-                <Check/>
-                <p>Submit</p>
-              </div>
-            </button>
-
-          </div>
-        </div>
+          <CheckAnswer
+            currentItem={ questionStack[0] }
+            open={ checkAnswerShown }
+          />
+        </>
       )}
+      
+
+      
     
     </>
     
