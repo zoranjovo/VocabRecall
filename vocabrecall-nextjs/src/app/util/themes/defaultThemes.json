@@ -1,0 +1,42 @@
+{
+  "Light": {
+    "notify": "light",
+    "--background": "#ffffff",
+    "--text": "#000000",
+    "--text-secondary": "#666666",
+    "--panel": "#e8e8e8",
+    "--panel-h": "#f5f5f5",
+    "--outline": "#ababab",
+    "--primary": "#5770ff"
+  },
+  "Dark": {
+    "notify": "dark",
+    "--background": "#0a0a0a",
+    "--text": "#ffffff",
+    "--text-secondary": "#b3b3b3",
+    "--panel": "#202020",
+    "--panel-h": "#2e2e2e",
+    "--outline": "#6e6e6e",
+    "--primary": "#5770ff"
+  },
+  "Jungle": {
+    "notify": "dark",
+    "--background": "#1c3513",
+    "--text": "#ffffff",
+    "--text-secondary": "#b3b3b3",
+    "--panel": "#1e120a",
+    "--panel-h": "#321a1a",
+    "--outline": "#495931",
+    "--primary": "#43dd40"
+  },
+  "Purpur": {
+    "notify": "dark",
+    "--background": "#2a0c2d",
+    "--text": "#ffffff",
+    "--text-secondary": "#b3b3b3",
+    "--panel": "#500f57",
+    "--panel-h": "#691273",
+    "--outline": "#6b8494",
+    "--primary": "#5316f8"
+  }
+}

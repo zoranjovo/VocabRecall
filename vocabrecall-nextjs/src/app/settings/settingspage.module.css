@@ -16,6 +16,7 @@
 }
 .contentContainer {
   display: flex;
+  flex-direction: column;
   gap: 50px;
   justify-content: space-evenly;
   margin-top: 20px;

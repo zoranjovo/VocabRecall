@@ -19,6 +19,32 @@ export const metadata: Metadata = {
   description: "",
 };
 
+const themeKeys = [
+  '--background',
+  '--text',
+  '--text-secondary',
+  '--panel',
+  '--panel-h',
+  '--outline',
+  '--primary'
+]
+const themeInitScript = `
+  (function() {
+    try {
+      const theme = localStorage.getItem('theme') || 'dark';
+      const variables = ${JSON.stringify(themeKeys)};
+      const root = document.documentElement;
+
+      variables.forEach(function(key) {
+        if (key.startsWith('--')) {
+          const value = localStorage.getItem(key);
+          if(value){ root.style.setProperty(key, value); }
+        }
+      });
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar/>
         {children}
         <ToastContainer/>

@@ -10,11 +10,12 @@ interface DropdownProps {
   selected: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelect: (value: any) => void;
+  capitalise?: boolean;
 }
 
 import styles from './Dropdown.module.css';
 
-export default function Dropdown({ options, selected, onSelect }: DropdownProps) {
+export default function Dropdown({ options, selected, onSelect, capitalise }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +31,7 @@ export default function Dropdown({ options, selected, onSelect }: DropdownProps)
   return (
     <div className={styles.dropdown} ref={ dropdownRef }>
       <button onClick={toggleDropdown} className={styles.button}>
-        {selected || ''}
+        {capitaliseFirst(selected) || ''}
         <ChevronDown className="w-4 h-4 ml-2" />
       </button>
 
@@ -42,7 +43,7 @@ export default function Dropdown({ options, selected, onSelect }: DropdownProps)
               onClick={() => handleSelect(option)}
               className={`${styles.option} ${selected === option ? styles.selected : ''}`}
             >
-              {option}
+              {capitaliseFirst(option)}
               {selected === option && <Check className={styles.checkIcon} />}
             </div>
           ))}
@@ -50,4 +51,9 @@ export default function Dropdown({ options, selected, onSelect }: DropdownProps)
       )}
     </div>
   );
+}
+
+function capitaliseFirst(str: string | number): string {
+  if(!str)return '';
+  return str.toString().charAt(0).toUpperCase() + str.toString().slice(1);
 }
