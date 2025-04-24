@@ -44,10 +44,7 @@ export default function ReviewPage(){
       try {
         const res = await axios.get(`/api/review/due`);
         if(res.status === 200){
-          console.log(res.data);
-          if(!res.data || res.data.length === 0){
-            return notify('error', 'No Reviews Available');
-          }
+          if(!res.data || res.data.length === 0){ return notify('error', 'No Reviews Available'); }
           fillQuestions(res.data);
         } else {
           console.error(res.data);
@@ -229,9 +226,15 @@ export default function ReviewPage(){
   }
   
   // update card values on server
-  const sendSRSUpdate = (cardId: string, correct: boolean) => {
+  const sendSRSUpdate = async (cardId: string, correct: boolean) => {
     if(mode === 'worst'){ return; }
-    console.log(cardId, correct);
+    try {
+      const res = await axios.post("/api/cards/srs", { id: cardId, correct: correct })
+      if(res.status !== 200){ notify('error', 'Failed to update card SRS values.'); }
+    } catch (err) {
+      console.error(err);
+      notify('error', 'Failed to update card SRS values.');
+    }
   }
 
 

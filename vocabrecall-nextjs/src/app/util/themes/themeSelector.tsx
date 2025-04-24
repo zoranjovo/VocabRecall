@@ -125,9 +125,7 @@ export default function ThemeSelector() {
               <div 
                 className={styles.itembox} 
                 key={ index } 
-                style={{ 
-                  backgroundColor: v['--panel'],
-                }}>
+                style={{ backgroundColor: v['--panel'] }}>
                 <Checkbox
                   label={ theme }
                   value={ currentTheme === theme }

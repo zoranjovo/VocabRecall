@@ -14,7 +14,7 @@ model Card {
   partB           String
   aliasesA        Json
   aliasesB        Json
-  easeFactor      Float    @default(2.5)
+  easeFactor      Float    @default(1.5)
   note            String?
   reversible      Boolean  @default(true)
   correctInterval Int      @default(1)
