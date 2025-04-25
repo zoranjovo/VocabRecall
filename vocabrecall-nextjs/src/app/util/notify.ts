@@ -3,7 +3,7 @@
 import { toast, Slide } from 'react-toastify';
 
 export const notify = (type: 'warn' | 'success' | 'error', msg: string) => {
-  let currentTheme: string | null = typeof window !== 'undefined' ? localStorage.getItem('notify') : 'light';
+  const currentTheme: string | null = typeof window !== 'undefined' ? localStorage.getItem('notify') : 'light';
   const notificationTheme: 'light' | 'dark' = currentTheme === 'light' || currentTheme === 'dark' ? currentTheme : 'light';
 
   if(type === 'warn'){

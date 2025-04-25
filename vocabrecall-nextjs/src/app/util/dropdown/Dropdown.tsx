@@ -10,12 +10,11 @@ interface DropdownProps {
   selected: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelect: (value: any) => void;
-  capitalise?: boolean;
 }
 
 import styles from './Dropdown.module.css';
 
-export default function Dropdown({ options, selected, onSelect, capitalise }: DropdownProps) {
+export default function Dropdown({ options, selected, onSelect }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

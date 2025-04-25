@@ -46,7 +46,7 @@ export function getAllThemes(): AllThemes {
     if(stored){
       try {
         customThemes = JSON.parse(stored);
-      } catch (err) {
+      } catch {
         console.error('Failed to get custom themes from local storage');
       }
     }

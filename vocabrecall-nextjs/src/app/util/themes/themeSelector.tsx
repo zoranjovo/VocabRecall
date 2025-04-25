@@ -231,7 +231,6 @@ export default function ThemeSelector() {
                   options={ ['light', 'dark'] }
                   selected={ newThemeNotify }
                   onSelect={ setNewThemeNotify }
-                  capitalise
                 />
               </div>
               
@@ -257,9 +256,4 @@ export default function ThemeSelector() {
       
     </>
   );
-}
-
-function capitaliseFirst(str: string): string {
-  if(!str)return '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }
