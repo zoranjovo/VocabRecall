@@ -25,37 +25,35 @@ export async function POST(req: Request) {
     
     let easeFactor = card.easeFactor;
     let nextReview = card.nextReview;
+    let correctInterval = card.correctInterval;
 
     if (correct) {
       // increase ease factor for correct answer
       easeFactor = Math.min(20.0, easeFactor * 1.3);
+
+      // increment correctInterval
+      correctInterval++;
       
-      // base interval calculation based only on ease factor, could also use correctInterval if needed
-      const intervalHours = Math.pow(1.25 * easeFactor, 2.6) + 10; // desmos y\ =\left(1.25\cdot x\right)^{2.6}+10\left\{1.1<x<20\right\}
+      // base interval calculation based only on ease factor, could also use correctInterval if needed (logging now for future use)
+      const intervalHours = Math.pow(1.05 * easeFactor, 2.8) + 6; // desmos y\ =\left(1.05\cdot x\right)^{2.8}+5\left\{1.1<x<20\right\}
       
       // calculate next review date
       const nextReviewMs = currentDate.getTime() + (intervalHours * 60 * 60 * 1000);
       nextReview = new Date(nextReviewMs);
-      
-      // log info
-      const daysUntilNextReview = intervalHours / 24;
-      console.log(`Word correctly answered! New ease factor: ${easeFactor.toFixed(2)}`);
-      
-      if (daysUntilNextReview < 1) {
-        console.log(`Next review: in ${intervalHours.toFixed(1)} hours`);
-      } else {
-        console.log(`Next review: in ${daysUntilNextReview.toFixed(1)} days (${intervalHours.toFixed(1)} hours)`);
-      }
-      
-      console.log(`Next review date: ${nextReview.toISOString()}`);
+
     } else {
       // decrease ease factor for incorrect answers
       easeFactor = Math.max(1.1, easeFactor * 0.8);
-      console.log(`Word incorrectly answered. New ease factor: ${easeFactor.toFixed(2)}`);
+
+      // set correct interval to 0
+      correctInterval = 0;
     }
 
     // update the card in db
-    const updatedCard = await prisma.card.update({ where: { id }, data: { easeFactor, nextReview } });
+    const updatedCard = await prisma.card.update({ 
+      where: { id },
+      data: { easeFactor, nextReview, correctInterval }
+    });
 
     return NextResponse.json(updatedCard);
   } catch (error) {

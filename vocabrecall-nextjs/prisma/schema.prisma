@@ -17,7 +17,7 @@ model Card {
   easeFactor      Float    @default(1.5)
   note            String?
   reversible      Boolean  @default(true)
-  correctInterval Int      @default(1)
+  correctInterval Int      @default(0)
   nextReview      DateTime @default(now())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
