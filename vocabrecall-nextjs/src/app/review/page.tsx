@@ -78,7 +78,6 @@ export default function ReviewPage(){
     try {
       const res = await axios.get(`/api/review/worst?amt=${num}`);
       if(res.status === 200){
-        console.log(res.data);
         if(!res.data || res.data.length === 0){ return notify('error', 'No Cards Available'); }
         fillQuestions(res.data);
         if(res.data.length < num){ notify('warn', `Only ${res.data.length} cards available.`);}
@@ -146,10 +145,9 @@ export default function ReviewPage(){
 
     // user presses enter not knowing if its correct or wrong
     if(checkingAnswer === 'none'){
-      const correctAnswers = questionStack[0].answers.map((answer: string) => answer.toLowerCase());
-
-      
-      if(correctAnswers.includes(input.toLowerCase())){
+      const normalise = (str: string) => str.toLowerCase().replace(/[\s\p{P}]/gu, '');
+      const correctAnswers = questionStack[0].answers.map((answer: string) => normalise(answer));
+      if(correctAnswers.includes(normalise(input))){
         // answer correct
         setCheckingAnswer('correct');
         setCompletedCount((prev) => prev + 1);
