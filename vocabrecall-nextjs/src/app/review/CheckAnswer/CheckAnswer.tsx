@@ -49,6 +49,16 @@ export default function CheckAnswer({
             
           </div>
         </div>
+        
+        { displayItem?.note && (
+          <div className={styles.sectionContainer}>
+            <div className={styles.sectionBox}>
+              <p className={styles.lang}>Note</p>
+              { displayItem?.question && ( <p className={styles.word}>{displayItem.note}</p> )} 
+            </div>
+          </div>
+        )}
+        
 
       </div>
     </div>
