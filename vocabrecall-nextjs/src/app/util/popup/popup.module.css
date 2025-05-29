@@ -38,6 +38,8 @@
   display: flex;
   justify-content: center;
   color: var(--text);
+  max-height: 80dvh;
+  overflow-y: scroll;
 }
 
 .content {
